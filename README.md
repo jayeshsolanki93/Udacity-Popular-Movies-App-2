@@ -19,6 +19,7 @@ This project is part of the Associate Android Developer Fast Track - Udacity.
 * Glide
 * Gson
 * Android support libraries
+* Timber
 
 #### License
     Copyright 2017 Jayesh Solanki
