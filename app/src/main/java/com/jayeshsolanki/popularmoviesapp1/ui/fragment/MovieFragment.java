@@ -57,7 +57,7 @@ public class MovieFragment extends Fragment {
     }
 
     public void setupToolbar() {
-        mToolbar.setNavigationIcon(R.drawable.ic_back_arrow);
+        mToolbar.setNavigationIcon(R.drawable.back_arrow);
         mToolbar.setTitle(movie.getTitle());
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
