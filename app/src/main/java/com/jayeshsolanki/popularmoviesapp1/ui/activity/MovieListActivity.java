@@ -23,4 +23,5 @@ public class MovieListActivity extends BaseActivity
     @Override
     public void onListFragmentInteraction(Uri uri) {
     }
+
 }

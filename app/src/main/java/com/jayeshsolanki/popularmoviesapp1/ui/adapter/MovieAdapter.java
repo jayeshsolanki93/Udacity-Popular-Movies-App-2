@@ -47,11 +47,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieDetails
             Glide.with(context).load(backDropUrl).into(backDrop);
 
             String posterUrl = "https://image.tmdb.org/t/p/w396" + movie.getPosterPath();
-            Glide.with(context).load(posterUrl).into(holder.poster);
+            Glide.with(context).load(posterUrl).into(holder.getPoster());
 
-            holder.title.setText(movie.getTitle());
-            holder.overview.setText(movie.getOverview());
-            holder.releaseYear.setText(movie.getReleaseDate().substring(0,4));
+            holder.getTitle().setText(movie.getTitle());
+            holder.getOverview().setText(movie.getOverview());
+            holder.getReleaseYear().setText(movie.getReleaseDate().substring(0,4));
         }
     }
 
@@ -83,6 +83,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieDetails
         MovieDetailsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+
+        TextView getTitle() {
+            return title;
+        }
+
+        TextView getOverview() {
+            return overview;
+        }
+
+        TextView getReleaseYear() {
+            return releaseYear;
+        }
+
+        ImageView getPoster() {
+            return poster;
         }
 
     }
