@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">PopularMoviesApp1</string>
+
+    <string name="title_activity_base">BaseActivity</string>
+
+    <string name="internet_err_msg">Check Internet Connection.</string>
+
+    <string name="sort_popular">Popular</string>
+    <string name="sort_top_rated">Highly Rated</string>
+
+    <string name="pref_sort_key" translatable="false">sort</string>
+    <string name="pref_sort_popular" translatable="false">popular</string>
+    <string name="pref_sort_top_rated" translatable="false">top_rated</string>
+
+    <string name="label_overview" translatable="true">Synopsis</string>
+
+    <string name="placeholder_movie_item_title">Deadpool</string>
+    <string name="placeholder_movie_item_overview">
+        Based upon Marvel Comics’ most unconventional anti-hero, DEADPOOL tells the origin story of former Special Forces operative turned mercenary Wade Wilson, who after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.
+    </string>
+    <string name="placeholder_movie_item_release_year">2016</string>
+    <string name="placeholder_movie_item_tagline">\"Witness the beginning of a happy ending\"</string>
+
+</resources>
