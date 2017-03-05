@@ -14,7 +14,6 @@ import retrofit2.Retrofit;
 @Singleton
 @Component(modules = {DataModule.class, AppModule.class})
 public interface DataComponent {
-    void inject(BaseActivity baseActivity);
     void inject(MovieListFragment movieListFragment);
 
     Retrofit retrofit();

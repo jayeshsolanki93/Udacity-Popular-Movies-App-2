@@ -1,18 +1,17 @@
 package com.jayeshsolanki.popularmoviesapp1.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.jayeshsolanki.popularmoviesapp1.R;
 import com.jayeshsolanki.popularmoviesapp1.model.Movie;
-import com.jayeshsolanki.popularmoviesapp1.ui.adapter.MovieAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,11 +23,17 @@ public class MovieFragment extends Fragment {
 
     View view;
 
-    @BindView(R.id.toolbar_movie)
-    Toolbar mToolbar;
+    @BindView(R.id.release_year)
+    TextView releaseYear;
 
-    @BindView(R.id.recyclerview_movie)
-    RecyclerView mRecyclerView;
+    @BindView(R.id.title)
+    TextView title;
+
+    @BindView(R.id.overview)
+    TextView overview;
+
+    @BindView(R.id.vote_average)
+    TextView voteAverage;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -37,8 +42,11 @@ public class MovieFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle args = getActivity().getIntent().getExtras();
-        movie = args.getParcelable("movie");
+
+        Intent intent = getActivity().getIntent();
+        if (intent != null && intent.hasExtra("movie")) {
+            movie = intent.getExtras().getParcelable("movie");
+        }
     }
 
     @Override
@@ -49,35 +57,16 @@ public class MovieFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        setupToolbar();
-
-        setupRecyclerView();
+        bindData(movie);
 
         return view;
     }
 
-    public void setupToolbar() {
-        mToolbar.setNavigationIcon(R.drawable.back_arrow);
-        mToolbar.setTitle(movie.getTitle());
-
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
-    }
-
-    public void setupRecyclerView() {
-        mRecyclerView.setHasFixedSize(true);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(llm);
-
-        MovieAdapter adapter = new MovieAdapter(getContext(), movie, view);
-        mRecyclerView.setAdapter(adapter);
-
+    public void bindData(Movie movie) {
+        releaseYear.setText(movie.getReleaseDate().substring(0, 4));
+        title.setText(movie.getTitle());
+        overview.setText(movie.getOverview());
+        voteAverage.setText(String.valueOf(movie.getVoteAverage()) + "/10");
     }
 
     @Override

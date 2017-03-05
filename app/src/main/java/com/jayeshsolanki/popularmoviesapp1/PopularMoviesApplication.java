@@ -8,6 +8,7 @@ import com.jayeshsolanki.popularmoviesapp1.di.component.DaggerDataComponent;
 import com.jayeshsolanki.popularmoviesapp1.di.component.DataComponent;
 import com.jayeshsolanki.popularmoviesapp1.di.module.AppModule;
 import com.jayeshsolanki.popularmoviesapp1.di.module.DataModule;
+import com.jayeshsolanki.popularmoviesapp1.utils.TmdbUrls;
 
 import timber.log.Timber;
 
@@ -32,7 +33,7 @@ public class PopularMoviesApplication extends Application {
                 .build();
         this.dataComponent = DaggerDataComponent.builder()
                 .appModule(appModule)
-                .dataModule(new DataModule("https://api.themoviedb.org/3/"))
+                .dataModule(new DataModule(TmdbUrls.API_URL))
                 .build();
     }
 

@@ -105,14 +105,15 @@ public class Movie implements Parcelable {
     private Integer voteCount;
 
     public Movie(Parcel parcel) {
-        String[] data = new String[6];
+        String[] data = new String[7];
         parcel.readStringArray(data);
         this.setId(Integer.parseInt(data[0]));
         this.setTitle(data[1]);
         this.setOverview(data[2]);
         this.setReleaseDate(data[3]);
-        this.setPosterPath(data[4]);
-        this.setBackdropPath(data[5]);
+        this.setVoteAverage(Double.parseDouble(data[4]));
+        this.setPosterPath(data[5]);
+        this.setBackdropPath(data[6]);
     }
 
     @Override
@@ -127,6 +128,7 @@ public class Movie implements Parcelable {
                 this.getTitle(),
                 this.getOverview(),
                 this.getReleaseDate(),
+                String.valueOf(this.getVoteAverage()),
                 this.getPosterPath(),
                 this.getBackdropPath()
         });
