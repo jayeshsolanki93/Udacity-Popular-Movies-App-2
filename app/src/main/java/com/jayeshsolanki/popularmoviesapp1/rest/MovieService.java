@@ -10,5 +10,8 @@ import retrofit2.http.Query;
 public interface MovieService {
 
     @GET("movie/{sortby}")
-    Call<MoviesResponse> getMovies(@Path("sortby") String sortBy, @Query("api_key") String apiKey);
+    Call<MoviesResponse> getMovies(
+            @Path("sortby") String sortBy,
+            @Query("page") int page,
+            @Query("api_key") String apiKey);
 }
