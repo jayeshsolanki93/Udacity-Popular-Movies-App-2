@@ -46,7 +46,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     @Override
     public void onBindViewHolder(final MovieViewHolder holder, int position) {
-        holder.movie = movies.get(position);
+        holder.setMovie(movies.get(position));
         String posterUrl = AppConstants.BASE_IMAGE_URL + movies.get(position).getPosterPath();
         Glide.with(context).load(posterUrl).into(holder.getMovieItemPoster());
         holder.getMovieItemTitle().setText(holder.movie.getTitle());
@@ -70,6 +70,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         MovieViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+
+        void setMovie(Movie movie) {
+            this.movie = movie;
         }
 
         ImageView getMovieItemPoster() {
