@@ -2,7 +2,6 @@ package com.jayeshsolanki.popularmoviesapp1.ui.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -40,8 +39,6 @@ import retrofit2.Retrofit;
 import timber.log.Timber;
 
 public class MovieListFragment extends Fragment {
-
-    private OnListFragmentInteractionListener mListener;
 
     private ArrayList<Movie> mMovies = new ArrayList<>();
 
@@ -166,26 +163,9 @@ public class MovieListFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new IllegalStateException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
         scrollListener.resetState();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -221,21 +201,6 @@ public class MovieListFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Uri uri);
     }
 
 }

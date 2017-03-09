@@ -1,13 +1,11 @@
 package com.jayeshsolanki.popularmoviesapp1.ui.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import com.jayeshsolanki.popularmoviesapp1.R;
 import com.jayeshsolanki.popularmoviesapp1.ui.fragment.MovieListFragment;
 
-public class MovieListActivity extends BaseActivity
-        implements MovieListFragment.OnListFragmentInteractionListener {
+public class MovieListActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +16,6 @@ public class MovieListActivity extends BaseActivity
                     .add(R.id.movie_list_container, new MovieListFragment())
                     .commit();
         }
-    }
-
-    @Override
-    public void onListFragmentInteraction(Uri uri) {
     }
 
 }

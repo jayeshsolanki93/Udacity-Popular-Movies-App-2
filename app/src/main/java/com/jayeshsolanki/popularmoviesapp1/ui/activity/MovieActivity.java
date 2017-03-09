@@ -1,10 +1,8 @@
 package com.jayeshsolanki.popularmoviesapp1.ui.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,8 +17,7 @@ import com.jayeshsolanki.popularmoviesapp1.utils.TmdbUrls;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieActivity extends AppCompatActivity
-        implements MovieFragment.OnFragmentInteractionListener {
+public class MovieActivity extends BaseActivity {
 
     Movie movie;
 
@@ -75,10 +72,6 @@ public class MovieActivity extends AppCompatActivity
 
         String backDropUrl = TmdbUrls.BASE_IMAGE_URL + movie.getBackdropPath();
         Glide.with(this).load(backDropUrl).into(backdrop);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
     }
 
 }
