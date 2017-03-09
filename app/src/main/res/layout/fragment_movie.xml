@@ -10,12 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="16dp">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp">
 
             <LinearLayout
@@ -29,45 +31,34 @@
                     android:id="@+id/release_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:text="@string/placeholder_movie_item_release_year"
                     android:textColor="@color/colorGray"
                     android:textSize="12sp"/>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:gravity="start"
-                    android:layout_weight="1"
                     android:textSize="22sp"
                     android:ellipsize="end"
                     android:maxLines="3"
                     android:textColor="@color/colorBlack"
                     tools:text="@string/placeholder_movie_item_title"/>
 
-                <TextView
-                    android:id="@+id/vote_average"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="end"
-                    android:layout_weight="1"
-                    android:textSize="18sp"
-                    android:maxLines="1"
-                    android:textColor="@color/colorGray"
-                    tools:text="@string/placeholder_movie_item_vote_average"/>
-
-            </LinearLayout>
-
+            <RatingBar
+                android:id="@+id/vote_average"
+                style="?attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="10"
+                android:rating="6.7"
+                android:stepSize="0.1"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
         </LinearLayout>
 
         <android.support.v7.widget.CardView

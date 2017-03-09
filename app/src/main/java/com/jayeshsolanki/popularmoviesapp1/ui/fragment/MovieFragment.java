@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.jayeshsolanki.popularmoviesapp1.R;
@@ -33,7 +34,7 @@ public class MovieFragment extends Fragment {
     TextView overview;
 
     @BindView(R.id.vote_average)
-    TextView voteAverage;
+    RatingBar voteAverage;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -66,7 +67,7 @@ public class MovieFragment extends Fragment {
         releaseYear.setText(movie.getReleaseDate().substring(0, 4));
         title.setText(movie.getTitle());
         overview.setText(movie.getOverview());
-        voteAverage.setText(String.valueOf(movie.getVoteAverage()) + "/10");
+        voteAverage.setRating((float) movie.getVoteAverage().doubleValue());
     }
 
     @Override
