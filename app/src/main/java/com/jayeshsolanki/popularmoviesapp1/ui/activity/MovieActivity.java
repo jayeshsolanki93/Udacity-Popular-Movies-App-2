@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.jayeshsolanki.popularmoviesapp1.AppConstants;
 import com.jayeshsolanki.popularmoviesapp1.R;
 import com.jayeshsolanki.popularmoviesapp1.model.Movie;
 import com.jayeshsolanki.popularmoviesapp1.ui.fragment.MovieFragment;
-import com.jayeshsolanki.popularmoviesapp1.utils.TmdbUrls;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,7 +70,7 @@ public class MovieActivity extends BaseActivity {
         setTitle("");
         getSupportActionBar().setTitle(movie.getTitle());
 
-        String backDropUrl = TmdbUrls.BASE_IMAGE_URL + movie.getBackdropPath();
+        String backDropUrl = AppConstants.BASE_IMAGE_URL + movie.getBackdropPath();
         Glide.with(this).load(backDropUrl).into(backdrop);
     }
 

@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.jayeshsolanki.popularmoviesapp1.AppConstants;
 import com.jayeshsolanki.popularmoviesapp1.R;
 import com.jayeshsolanki.popularmoviesapp1.model.Movie;
 import com.jayeshsolanki.popularmoviesapp1.ui.activity.MovieActivity;
-import com.jayeshsolanki.popularmoviesapp1.utils.TmdbUrls;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +47,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     @Override
     public void onBindViewHolder(final MovieViewHolder holder, int position) {
         holder.movie = movies.get(position);
-        String posterUrl = TmdbUrls.BASE_IMAGE_URL + movies.get(position).getPosterPath();
+        String posterUrl = AppConstants.BASE_IMAGE_URL + movies.get(position).getPosterPath();
         Glide.with(context).load(posterUrl).into(holder.getMovieItemPoster());
         holder.getMovieItemTitle().setText(holder.movie.getTitle());
     }

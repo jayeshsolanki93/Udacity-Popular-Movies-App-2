@@ -8,11 +8,10 @@ import com.jayeshsolanki.popularmoviesapp1.di.component.DaggerDataComponent;
 import com.jayeshsolanki.popularmoviesapp1.di.component.DataComponent;
 import com.jayeshsolanki.popularmoviesapp1.di.module.AppModule;
 import com.jayeshsolanki.popularmoviesapp1.di.module.DataModule;
-import com.jayeshsolanki.popularmoviesapp1.utils.TmdbUrls;
 
 import timber.log.Timber;
 
-public class PopularMoviesApplication extends Application {
+public class PopularMoviesApp extends Application {
 
     private AppComponent appComponent;
     private DataComponent dataComponent;
@@ -33,7 +32,7 @@ public class PopularMoviesApplication extends Application {
                 .build();
         this.dataComponent = DaggerDataComponent.builder()
                 .appModule(appModule)
-                .dataModule(new DataModule(TmdbUrls.API_URL))
+                .dataModule(new DataModule(AppConstants.API_URL))
                 .build();
     }
 

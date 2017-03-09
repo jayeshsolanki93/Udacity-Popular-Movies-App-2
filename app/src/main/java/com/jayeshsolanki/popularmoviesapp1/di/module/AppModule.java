@@ -2,7 +2,7 @@ package com.jayeshsolanki.popularmoviesapp1.di.module;
 
 import android.app.Application;
 
-import com.jayeshsolanki.popularmoviesapp1.PopularMoviesApplication;
+import com.jayeshsolanki.popularmoviesapp1.PopularMoviesApp;
 
 import javax.inject.Singleton;
 
@@ -11,9 +11,9 @@ import dagger.Provides;
 
 @Module
 public class AppModule {
-    private final PopularMoviesApplication app;
+    private final PopularMoviesApp app;
 
-    public AppModule(PopularMoviesApplication app) {
+    public AppModule(PopularMoviesApp app) {
         this.app = app;
     }
 

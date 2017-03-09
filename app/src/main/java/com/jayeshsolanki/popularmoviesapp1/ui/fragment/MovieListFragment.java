@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.jayeshsolanki.popularmoviesapp1.BuildConfig;
-import com.jayeshsolanki.popularmoviesapp1.PopularMoviesApplication;
+import com.jayeshsolanki.popularmoviesapp1.PopularMoviesApp;
 import com.jayeshsolanki.popularmoviesapp1.R;
 import com.jayeshsolanki.popularmoviesapp1.model.Movie;
 import com.jayeshsolanki.popularmoviesapp1.model.MoviesResponse;
@@ -64,7 +64,7 @@ public class MovieListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((PopularMoviesApplication) getActivity().getApplication())
+        ((PopularMoviesApp) getActivity().getApplication())
                 .getDataComponent().inject(MovieListFragment.this);
         setHasOptionsMenu(true);
         if (savedInstanceState != null) {

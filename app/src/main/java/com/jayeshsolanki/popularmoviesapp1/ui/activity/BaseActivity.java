@@ -4,7 +4,7 @@ import android.app.Application;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.jayeshsolanki.popularmoviesapp1.PopularMoviesApplication;
+import com.jayeshsolanki.popularmoviesapp1.PopularMoviesApp;
 import com.jayeshsolanki.popularmoviesapp1.di.component.AppComponent;
 
 import javax.inject.Inject;
@@ -22,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected AppComponent getAppComponent() {
-        return  ((PopularMoviesApplication) getApplication()).getAppComponent();
+        return  ((PopularMoviesApp) getApplication()).getAppComponent();
     }
 
 }
