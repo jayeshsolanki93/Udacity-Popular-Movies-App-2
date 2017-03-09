@@ -14,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.jayeshsolanki.popularmoviesapp1.BuildConfig;
 import com.jayeshsolanki.popularmoviesapp1.PopularMoviesApp;
@@ -23,10 +22,8 @@ import com.jayeshsolanki.popularmoviesapp1.model.Movie;
 import com.jayeshsolanki.popularmoviesapp1.model.MoviesResponse;
 import com.jayeshsolanki.popularmoviesapp1.rest.MovieService;
 import com.jayeshsolanki.popularmoviesapp1.ui.adapter.MovieListAdapter;
-import com.jayeshsolanki.popularmoviesapp1.utils.EndlessScrollListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,8 +39,6 @@ public class MovieListFragment extends Fragment {
 
     private ArrayList<Movie> mMovies = new ArrayList<>();
 
-    private EndlessScrollListener scrollListener;
-
     @BindView(R.id.recyclerView_movies)
     protected RecyclerView mRecyclerView;
 
@@ -55,7 +50,17 @@ public class MovieListFragment extends Fragment {
     @Inject
     SharedPreferences prefs;
 
+    GridLayoutManager mLayoutManager;
+
+    static final String API_KEY = BuildConfig.API_KEY;
+
     private int pageCount = 1;
+    private int previousTotal = 0;
+    private boolean loading = true;
+    private int visibleThreshold = 5;
+    int firstVisibleItem;
+    int visibleItemCount;
+    int totalItemCount;
 
     public MovieListFragment() {
         // Required empty public constructor
@@ -69,7 +74,11 @@ public class MovieListFragment extends Fragment {
         setHasOptionsMenu(true);
         if (savedInstanceState != null) {
             mMovies = savedInstanceState.getParcelableArrayList("mMovies");
-            pageCount = savedInstanceState.getInt("pageCount") + 1;
+            pageCount = savedInstanceState.getInt("pageCount");
+            previousTotal = savedInstanceState.getInt("previousTotal");
+            firstVisibleItem = savedInstanceState.getInt("firstVisibleItem");
+            totalItemCount = savedInstanceState.getInt("totalItemCount");
+            loading = savedInstanceState.getBoolean("loading");
         }
     }
 
@@ -78,6 +87,10 @@ public class MovieListFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("mMovies", mMovies);
         outState.putInt("pageCount", pageCount);
+        outState.putInt("previousTotal", previousTotal);
+        outState.putInt("firstVisibleItem", firstVisibleItem);
+        outState.putInt("totalItemCount", totalItemCount);
+        outState.putBoolean("loading", loading);
     }
 
     @Override
@@ -89,7 +102,9 @@ public class MovieListFragment extends Fragment {
 
         setupRecyclerView();
 
-        updateMovies(pageCount);
+        if (savedInstanceState == null) {
+            updateMovies(pageCount);
+        }
         return view;
     }
 
@@ -98,22 +113,35 @@ public class MovieListFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         int columnsCount = calculateNoOfColumns(getContext());
-        GridLayoutManager glm = new GridLayoutManager(getContext(), columnsCount);
-        mRecyclerView.setLayoutManager(glm);
+        mLayoutManager = new GridLayoutManager(getContext(), columnsCount);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
-        scrollListener = new EndlessScrollListener(glm) {
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onLoadMore() {
-                updateMovies(++pageCount);
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                visibleItemCount = mRecyclerView.getChildCount();
+                totalItemCount = mLayoutManager.getItemCount();
+                firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
+
+                if (loading && totalItemCount > previousTotal) {
+                    loading = false;
+                    previousTotal = totalItemCount;
+                    pageCount++;
+                }
+                if (!loading && (totalItemCount - visibleItemCount)
+                        <= (firstVisibleItem + visibleThreshold)) {
+                    updateMovies(pageCount);
+                    loading = true;
+                }
             }
-        };
-        mRecyclerView.addOnScrollListener(scrollListener);
+        });
     }
 
     public void clearAdapterData() {
         mMovies.clear();
         mAdapter.setAdapterData(mMovies);
-        scrollListener.resetState();
     }
 
     public int calculateNoOfColumns(Context context) {
@@ -124,16 +152,14 @@ public class MovieListFragment extends Fragment {
 
     private void updateMovies(int page) {
         MovieService movieService = retrofit.create(MovieService.class);
-        final String apiKey = BuildConfig.API_KEY;
         String sort = prefs.getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular));
 
-        Call<MoviesResponse> moviesResponseCall = movieService.getMovies(sort, page, apiKey);
+        Call<MoviesResponse> moviesResponseCall = movieService.getMovies(sort, page, API_KEY);
         moviesResponseCall.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
                 if (response != null && response.body() != null) {
-                    List<Movie> mMoreMovies = response.body().getResults();
-                    mMovies.addAll(mMoreMovies);
+                    mMovies.addAll(response.body().getResults());
                     final int currSize = mAdapter.getItemCount();
                     if (currSize == 0) {
                         mAdapter = new MovieListAdapter(getContext(), mMovies);
@@ -143,13 +169,11 @@ public class MovieListFragment extends Fragment {
                             @Override
                             public void run() {
                                 mAdapter.notifyItemRangeInserted(currSize, mMovies.size() - 1);
-                                Toast.makeText(getContext(), "Page " + pageCount, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<MoviesResponse> call, Throwable t) {
                 showSnackBar(getString(R.string.internet_err_msg));
@@ -160,12 +184,6 @@ public class MovieListFragment extends Fragment {
 
     void showSnackBar(String msg) {
         Snackbar.make(mRecyclerView, msg, Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        scrollListener.resetState();
     }
 
     @Override
