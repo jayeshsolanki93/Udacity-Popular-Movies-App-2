@@ -76,8 +76,6 @@ public class MovieListFragment extends Fragment {
             mMovies = savedInstanceState.getParcelableArrayList("mMovies");
             pageCount = savedInstanceState.getInt("pageCount");
             previousTotal = savedInstanceState.getInt("previousTotal");
-            firstVisibleItem = savedInstanceState.getInt("firstVisibleItem");
-            totalItemCount = savedInstanceState.getInt("totalItemCount");
             loading = savedInstanceState.getBoolean("loading");
         }
     }
@@ -88,8 +86,6 @@ public class MovieListFragment extends Fragment {
         outState.putParcelableArrayList("mMovies", mMovies);
         outState.putInt("pageCount", pageCount);
         outState.putInt("previousTotal", previousTotal);
-        outState.putInt("firstVisibleItem", firstVisibleItem);
-        outState.putInt("totalItemCount", totalItemCount);
         outState.putBoolean("loading", loading);
     }
 
@@ -213,12 +209,19 @@ public class MovieListFragment extends Fragment {
             item.setChecked(true);
 
             clearAdapterData();
-            pageCount = 1;
+            resetScroller();
             updateMovies(pageCount);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void resetScroller() {
+        pageCount = 1;
+        previousTotal = 0;
+        loading = true;
+        visibleThreshold = 5;
     }
 
 }
