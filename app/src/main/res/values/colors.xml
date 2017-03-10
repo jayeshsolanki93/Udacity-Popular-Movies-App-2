@@ -3,7 +3,8 @@
     <color name="colorPrimary">#ED1C24</color>
     <color name="colorPrimaryDark">#CC0000</color>
     <color name="colorAccent">#FF5722</color>
-    <color name="colorGray">#797979</color>
-    <color name="colorBlack">#000000</color>
+    <color name="grey">#797979</color>
+    <color name="black">#000000</color>
     <color name="toolbarTransparent">#00FFFFFF</color>
+    <color name="blackTinted">#44000000</color>
 </resources>

@@ -33,9 +33,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
-                    android:text="@string/placeholder_movie_item_release_year"
-                    android:textColor="@color/colorGray"
-                    android:textSize="12sp"/>
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    android:text="@string/placeholder_movie_item_release_year" />
 
             </LinearLayout>
                 <TextView
@@ -46,8 +46,8 @@
                     android:textSize="22sp"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:textColor="@color/colorBlack"
-                    tools:text="@string/placeholder_movie_item_title"/>
+                    android:textColor="@color/black"
+                    tools:text="@string/placeholder_movie_item_title" />
 
             <RatingBar
                 android:id="@+id/vote_average"
@@ -55,10 +55,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="10"
-                android:rating="6.7"
                 android:stepSize="0.1"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:rating="@string/placeholder_movie_item_ratings" />
         </LinearLayout>
 
         <android.support.v7.widget.CardView
@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:padding="10dp"/>
+                    android:padding="10dp" />
 
                 <TextView
                     android:id="@+id/overview"
