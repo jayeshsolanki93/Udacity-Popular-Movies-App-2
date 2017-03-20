@@ -1,4 +1,4 @@
-# Udacity-Popular-Movies-App-1
+# Udacity-Popular-Movies-App-2
 Android application to discover top rated and popular movies.
 
 This project is part of the Associate Android Developer Fast Track - Udacity.
