@@ -1,4 +1,4 @@
-package com.jayeshsolanki.popularmoviesapp1.di.module;
+package com.jayeshsolanki.popularmoviesapp2.di.module;
 
 import android.app.Application;
 import android.content.SharedPreferences;

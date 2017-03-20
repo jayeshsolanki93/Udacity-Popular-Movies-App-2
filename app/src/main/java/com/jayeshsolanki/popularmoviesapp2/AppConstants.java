@@ -1,4 +1,4 @@
-package com.jayeshsolanki.popularmoviesapp1;
+package com.jayeshsolanki.popularmoviesapp2;
 
 public class AppConstants {
 

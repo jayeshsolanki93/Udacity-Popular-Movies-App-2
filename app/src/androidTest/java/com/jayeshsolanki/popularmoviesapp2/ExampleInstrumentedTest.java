@@ -1,4 +1,4 @@
-package com.jayeshsolanki.popularmoviesapp1;
+package com.jayeshsolanki.popularmoviesapp2;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.jayeshsolanki.popularmoviesapp1", appContext.getPackageName());
+        assertEquals("com.jayeshsolanki.popularmoviesapp2", appContext.getPackageName());
     }
 }

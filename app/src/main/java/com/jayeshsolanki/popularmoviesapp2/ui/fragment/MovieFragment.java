@@ -1,4 +1,4 @@
-package com.jayeshsolanki.popularmoviesapp1.ui.fragment;
+package com.jayeshsolanki.popularmoviesapp2.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.jayeshsolanki.popularmoviesapp1.R;
-import com.jayeshsolanki.popularmoviesapp1.model.Movie;
+import com.jayeshsolanki.popularmoviesapp2.R;
+import com.jayeshsolanki.popularmoviesapp2.model.Movie;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

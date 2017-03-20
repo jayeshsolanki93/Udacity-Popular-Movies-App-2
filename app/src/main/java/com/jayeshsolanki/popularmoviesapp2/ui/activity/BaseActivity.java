@@ -1,11 +1,11 @@
-package com.jayeshsolanki.popularmoviesapp1.ui.activity;
+package com.jayeshsolanki.popularmoviesapp2.ui.activity;
 
 import android.app.Application;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.jayeshsolanki.popularmoviesapp1.PopularMoviesApp;
-import com.jayeshsolanki.popularmoviesapp1.di.component.AppComponent;
+import com.jayeshsolanki.popularmoviesapp2.PopularMoviesApp;
+import com.jayeshsolanki.popularmoviesapp2.di.component.AppComponent;
 
 import javax.inject.Inject;
 

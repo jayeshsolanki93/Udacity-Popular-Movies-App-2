@@ -1,9 +1,9 @@
-package com.jayeshsolanki.popularmoviesapp1.ui.activity;
+package com.jayeshsolanki.popularmoviesapp2.ui.activity;
 
 import android.os.Bundle;
 
-import com.jayeshsolanki.popularmoviesapp1.R;
-import com.jayeshsolanki.popularmoviesapp1.ui.fragment.MovieListFragment;
+import com.jayeshsolanki.popularmoviesapp2.R;
+import com.jayeshsolanki.popularmoviesapp2.ui.fragment.MovieListFragment;
 
 public class MovieListActivity extends BaseActivity {
 

@@ -1,4 +1,4 @@
-package com.jayeshsolanki.popularmoviesapp1.ui.adapter;
+package com.jayeshsolanki.popularmoviesapp2.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.jayeshsolanki.popularmoviesapp1.AppConstants;
-import com.jayeshsolanki.popularmoviesapp1.R;
-import com.jayeshsolanki.popularmoviesapp1.model.Movie;
-import com.jayeshsolanki.popularmoviesapp1.ui.activity.MovieActivity;
+import com.jayeshsolanki.popularmoviesapp2.AppConstants;
+import com.jayeshsolanki.popularmoviesapp2.R;
+import com.jayeshsolanki.popularmoviesapp2.model.Movie;
+import com.jayeshsolanki.popularmoviesapp2.ui.activity.MovieActivity;
 
 import java.util.Collections;
 import java.util.List;

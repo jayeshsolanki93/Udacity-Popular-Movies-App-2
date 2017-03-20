@@ -1,8 +1,8 @@
-package com.jayeshsolanki.popularmoviesapp1.di.module;
+package com.jayeshsolanki.popularmoviesapp2.di.module;
 
 import android.app.Application;
 
-import com.jayeshsolanki.popularmoviesapp1.PopularMoviesApp;
+import com.jayeshsolanki.popularmoviesapp2.PopularMoviesApp;
 
 import javax.inject.Singleton;
 

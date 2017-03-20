@@ -1,4 +1,4 @@
-package com.jayeshsolanki.popularmoviesapp1.ui.fragment;
+package com.jayeshsolanki.popularmoviesapp2.ui.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,13 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jayeshsolanki.popularmoviesapp1.BuildConfig;
-import com.jayeshsolanki.popularmoviesapp1.PopularMoviesApp;
-import com.jayeshsolanki.popularmoviesapp1.R;
-import com.jayeshsolanki.popularmoviesapp1.model.Movie;
-import com.jayeshsolanki.popularmoviesapp1.model.MoviesResponse;
-import com.jayeshsolanki.popularmoviesapp1.rest.MovieService;
-import com.jayeshsolanki.popularmoviesapp1.ui.adapter.MovieListAdapter;
+import com.jayeshsolanki.popularmoviesapp2.BuildConfig;
+import com.jayeshsolanki.popularmoviesapp2.PopularMoviesApp;
+import com.jayeshsolanki.popularmoviesapp2.R;
+import com.jayeshsolanki.popularmoviesapp2.model.Movie;
+import com.jayeshsolanki.popularmoviesapp2.model.MoviesResponse;
+import com.jayeshsolanki.popularmoviesapp2.rest.MovieService;
+import com.jayeshsolanki.popularmoviesapp2.ui.adapter.MovieListAdapter;
 
 import java.util.ArrayList;
 

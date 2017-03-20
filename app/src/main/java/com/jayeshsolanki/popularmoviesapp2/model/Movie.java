@@ -1,4 +1,4 @@
-package com.jayeshsolanki.popularmoviesapp1.model;
+package com.jayeshsolanki.popularmoviesapp2.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

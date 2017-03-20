@@ -1,6 +1,6 @@
-package com.jayeshsolanki.popularmoviesapp1.rest;
+package com.jayeshsolanki.popularmoviesapp2.rest;
 
-import com.jayeshsolanki.popularmoviesapp1.model.MoviesResponse;
+import com.jayeshsolanki.popularmoviesapp2.model.MoviesResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

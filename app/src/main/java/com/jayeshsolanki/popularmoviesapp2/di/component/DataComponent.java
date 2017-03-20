@@ -1,8 +1,8 @@
-package com.jayeshsolanki.popularmoviesapp1.di.component;
+package com.jayeshsolanki.popularmoviesapp2.di.component;
 
-import com.jayeshsolanki.popularmoviesapp1.di.module.AppModule;
-import com.jayeshsolanki.popularmoviesapp1.di.module.DataModule;
-import com.jayeshsolanki.popularmoviesapp1.ui.fragment.MovieListFragment;
+import com.jayeshsolanki.popularmoviesapp2.di.module.AppModule;
+import com.jayeshsolanki.popularmoviesapp2.di.module.DataModule;
+import com.jayeshsolanki.popularmoviesapp2.ui.fragment.MovieListFragment;
 
 import javax.inject.Singleton;
 

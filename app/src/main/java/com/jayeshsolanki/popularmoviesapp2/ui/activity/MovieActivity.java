@@ -1,4 +1,4 @@
-package com.jayeshsolanki.popularmoviesapp1.ui.activity;
+package com.jayeshsolanki.popularmoviesapp2.ui.activity;
 
 import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.jayeshsolanki.popularmoviesapp1.AppConstants;
-import com.jayeshsolanki.popularmoviesapp1.R;
-import com.jayeshsolanki.popularmoviesapp1.model.Movie;
-import com.jayeshsolanki.popularmoviesapp1.ui.fragment.MovieFragment;
+import com.jayeshsolanki.popularmoviesapp2.AppConstants;
+import com.jayeshsolanki.popularmoviesapp2.R;
+import com.jayeshsolanki.popularmoviesapp2.model.Movie;
+import com.jayeshsolanki.popularmoviesapp2.ui.fragment.MovieFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

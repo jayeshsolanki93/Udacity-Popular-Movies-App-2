@@ -1,13 +1,13 @@
-package com.jayeshsolanki.popularmoviesapp1;
+package com.jayeshsolanki.popularmoviesapp2;
 
 import android.app.Application;
 
-import com.jayeshsolanki.popularmoviesapp1.di.component.AppComponent;
-import com.jayeshsolanki.popularmoviesapp1.di.component.DaggerAppComponent;
-import com.jayeshsolanki.popularmoviesapp1.di.component.DaggerDataComponent;
-import com.jayeshsolanki.popularmoviesapp1.di.component.DataComponent;
-import com.jayeshsolanki.popularmoviesapp1.di.module.AppModule;
-import com.jayeshsolanki.popularmoviesapp1.di.module.DataModule;
+import com.jayeshsolanki.popularmoviesapp2.di.component.AppComponent;
+import com.jayeshsolanki.popularmoviesapp2.di.component.DaggerAppComponent;
+import com.jayeshsolanki.popularmoviesapp2.di.component.DaggerDataComponent;
+import com.jayeshsolanki.popularmoviesapp2.di.component.DataComponent;
+import com.jayeshsolanki.popularmoviesapp2.di.module.AppModule;
+import com.jayeshsolanki.popularmoviesapp2.di.module.DataModule;
 
 import timber.log.Timber;
 
