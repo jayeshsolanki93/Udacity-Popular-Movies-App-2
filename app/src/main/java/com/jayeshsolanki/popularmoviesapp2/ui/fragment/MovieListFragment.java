@@ -35,6 +35,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import timber.log.Timber;
 
+import static com.jayeshsolanki.popularmoviesapp2.AppConstants.API_KEY;
+
 public class MovieListFragment extends Fragment {
 
     private ArrayList<Movie> mMovies = new ArrayList<>();
@@ -51,8 +53,6 @@ public class MovieListFragment extends Fragment {
     SharedPreferences prefs;
 
     GridLayoutManager mLayoutManager;
-
-    static final String API_KEY = BuildConfig.API_KEY;
 
     private int pageCount = 1;
     private int previousTotal = 0;
