@@ -51,18 +51,18 @@ public class MovieFragment extends Fragment {
     }
 
     public static MovieFragment newInstance(Movie movie) {
-        Bundle args = new Bundle();
-            args.putParcelable("movie", movie);
-
         MovieFragment fragment = new MovieFragment();
         fragment.movie = movie;
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            movie = savedInstanceState.getParcelable("movie");
+        }
 
         Intent intent = getActivity().getIntent();
         if (intent != null && intent.hasExtra("movie")) {
@@ -85,6 +85,12 @@ public class MovieFragment extends Fragment {
         setupToolbar(toolbar);
 
         bindData(movie);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("movie", movie);
     }
 
     public void setupToolbar(Toolbar toolbar) {
