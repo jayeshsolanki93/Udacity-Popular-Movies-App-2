@@ -2,13 +2,19 @@ package com.jayeshsolanki.popularmoviesapp2.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.jayeshsolanki.popularmoviesapp2.AppConstants;
 import com.jayeshsolanki.popularmoviesapp2.R;
 import com.jayeshsolanki.popularmoviesapp2.model.Movie;
 
@@ -19,7 +25,14 @@ public class MovieFragment extends Fragment {
 
     private Movie movie;
 
-    View view;
+    @BindView(R.id.toolbar_movie)
+    Toolbar toolbar;
+
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
+
+    @BindView(R.id.backdrop_movie)
+    ImageView backdrop;
 
     @BindView(R.id.release_year)
     TextView releaseYear;
@@ -37,6 +50,16 @@ public class MovieFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static MovieFragment newInstance(Movie movie) {
+        Bundle args = new Bundle();
+            args.putParcelable("movie", movie);
+
+        MovieFragment fragment = new MovieFragment();
+        fragment.movie = movie;
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,14 +73,27 @@ public class MovieFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_movie, container, false);
+        return inflater.inflate(R.layout.fragment_movie, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         ButterKnife.bind(this, view);
 
-        bindData(movie);
+        setupToolbar(toolbar);
 
-        return view;
+        bindData(movie);
+    }
+
+    public void setupToolbar(Toolbar toolbar) {
+        toolbar.setTitle(movie.getTitle());
+
+        collapsingToolbar.setTitle(movie.getTitle());
+
+        String backDropUrl = AppConstants.BASE_IMAGE_URL + movie.getBackdropPath();
+        Glide.with(this).load(backDropUrl).into(backdrop);
     }
 
     public void bindData(Movie movie) {

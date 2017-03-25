@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jayeshsolanki.popularmoviesapp2.BuildConfig;
 import com.jayeshsolanki.popularmoviesapp2.PopularMoviesApp;
 import com.jayeshsolanki.popularmoviesapp2.R;
 import com.jayeshsolanki.popularmoviesapp2.model.Movie;
@@ -37,9 +36,10 @@ import timber.log.Timber;
 
 import static com.jayeshsolanki.popularmoviesapp2.AppConstants.API_KEY;
 
-public class MovieListFragment extends Fragment {
+public class MovieListFragment extends Fragment implements MovieListAdapter.MovieClickListener {
 
     private ArrayList<Movie> mMovies = new ArrayList<>();
+    private MovieSelectedListener listener;
 
     @BindView(R.id.recyclerView_movies)
     protected RecyclerView mRecyclerView;
@@ -90,6 +90,24 @@ public class MovieListFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof MovieSelectedListener) {
+            listener = (MovieSelectedListener) context;
+        } else {
+            throw new IllegalStateException(context.toString()
+                    + " must implement MovieSelectedListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
@@ -106,6 +124,7 @@ public class MovieListFragment extends Fragment {
 
     void setupRecyclerView() {
         mAdapter =  new MovieListAdapter(getActivity(), mMovies);
+        mAdapter.setListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
         int columnsCount = calculateNoOfColumns(getContext());
@@ -159,6 +178,7 @@ public class MovieListFragment extends Fragment {
                     final int currSize = mAdapter.getItemCount();
                     if (currSize == 0) {
                         mAdapter = new MovieListAdapter(getContext(), mMovies);
+                        mAdapter.setListener(MovieListFragment.this);
                         mRecyclerView.setAdapter(mAdapter);
                     } else {
                         mRecyclerView.post(new Runnable() {
@@ -222,6 +242,15 @@ public class MovieListFragment extends Fragment {
         previousTotal = 0;
         loading = true;
         visibleThreshold = 5;
+    }
+
+    @Override
+    public void onMovieClick(Movie movie, View view, int position) {
+        listener.onMovieSelected(movie, view);
+    }
+
+    public interface MovieSelectedListener {
+        void onMovieSelected(Movie movie, View view);
     }
 
 }

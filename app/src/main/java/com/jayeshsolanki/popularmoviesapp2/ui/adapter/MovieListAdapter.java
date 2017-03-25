@@ -1,7 +1,6 @@
 package com.jayeshsolanki.popularmoviesapp2.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.jayeshsolanki.popularmoviesapp2.AppConstants;
 import com.jayeshsolanki.popularmoviesapp2.R;
 import com.jayeshsolanki.popularmoviesapp2.model.Movie;
-import com.jayeshsolanki.popularmoviesapp2.ui.activity.MovieActivity;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,11 +23,16 @@ import butterknife.OnClick;
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
 
     private Context context;
+    private MovieClickListener listener;
     private List<Movie> movies = Collections.emptyList();
 
     public MovieListAdapter(Context context, List<Movie> movies) {
         this.context = context;
         this.movies = movies;
+    }
+
+    public void setListener(MovieClickListener listener) {
+        this.listener = listener;
     }
 
     public void setAdapterData(List<Movie> movies) {
@@ -55,6 +58,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     @Override
     public int getItemCount() {
         return movies.size();
+    }
+
+    public interface MovieClickListener {
+        void onMovieClick(final Movie movie, View view, int position);
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
@@ -85,10 +92,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         }
 
         @OnClick(R.id.movie_item_card)
-        void onClick() {
-            Intent intent = new Intent(context, MovieActivity.class);
-            intent.putExtra("movie", movie);
-            context.startActivity(intent);
+        void onClick(View v) {
+            listener.onMovieClick(movie, v, getAdapterPosition());
         }
 
     }
