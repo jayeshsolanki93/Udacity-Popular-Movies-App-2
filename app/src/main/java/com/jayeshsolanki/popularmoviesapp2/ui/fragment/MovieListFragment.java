@@ -9,8 +9,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -203,31 +201,8 @@ public class MovieListFragment extends Fragment implements MovieListAdapter.Movi
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.sort_menu, menu);
-
-        String sort = prefs.getString(getString(R.string.pref_sort_key),
-                getString(R.string.pref_sort_popular));
-        if (sort.equals(getString(R.string.pref_sort_popular))) {
-            menu.findItem(R.id.sort_popular).setChecked(true);
-        } else if (sort.equals(getString(R.string.pref_sort_top_rated))) {
-            menu.findItem(R.id.sort_top_rated).setChecked(true);
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getGroupId() == R.id.sort) {
-            SharedPreferences.Editor editor = prefs.edit();
-            int itemId = item.getItemId();
-            if (itemId == R.id.sort_popular) {
-                editor.putString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular));
-            } else if (itemId == R.id.sort_top_rated) {
-                editor.putString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_top_rated));
-            }
-            editor.apply();
-            item.setChecked(true);
-
             clearAdapterData();
             resetScroller();
             updateMovies(pageCount);
