@@ -7,6 +7,10 @@
         <item
             android:id="@+id/sort_top_rated"
             android:title="@string/sort_top_rated" />
+
+        <item
+            android:id="@+id/sort_favorites"
+            android:title="@string/soft_favorites" />
     </group>
 
 </menu>

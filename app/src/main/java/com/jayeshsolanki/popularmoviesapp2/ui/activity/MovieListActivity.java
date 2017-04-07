@@ -20,6 +20,8 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
+import static com.jayeshsolanki.popularmoviesapp2.AppConstants.MOVIE_INTENT;
+
 public class MovieListActivity extends BaseActivity
         implements MovieListFragment.MovieSelectedListener {
 
@@ -62,6 +64,8 @@ public class MovieListActivity extends BaseActivity
             menu.findItem(R.id.sort_popular).setChecked(true);
         } else if (sort.equals(getString(R.string.pref_sort_top_rated))) {
             menu.findItem(R.id.sort_top_rated).setChecked(true);
+        } else if (sort.equals(getString(R.string.pref_sort_favorites))) {
+            menu.findItem(R.id.sort_favorites).setChecked(true);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -76,6 +80,8 @@ public class MovieListActivity extends BaseActivity
                 editor.putString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular));
             } else if (itemId == R.id.sort_top_rated) {
                 editor.putString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_top_rated));
+            } else if (itemId == R.id.sort_favorites) {
+                editor.putString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_favorites));
             }
             editor.apply();
             item.setChecked(true);
@@ -115,7 +121,7 @@ public class MovieListActivity extends BaseActivity
 
     private void startMovieActivity(Movie movie) {
         Intent intent = new Intent(this, MovieActivity.class);
-        intent.putExtra("movie", movie);
+        intent.putExtra(MOVIE_INTENT, movie);
         startActivity(intent);
     }
 

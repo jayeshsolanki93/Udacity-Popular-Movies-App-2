@@ -7,10 +7,12 @@
 
     <string name="sort_popular">Popular</string>
     <string name="sort_top_rated">Highly Rated</string>
+    <string name="soft_favorites">Favorites</string>
 
     <string name="pref_sort_key" translatable="false">sort</string>
     <string name="pref_sort_popular" translatable="false">popular</string>
     <string name="pref_sort_top_rated" translatable="false">top_rated</string>
+    <string name="pref_sort_favorites" translatable="false">favorites</string>
 
     <string name="label_overview" translatable="true">Synopsis</string>
 

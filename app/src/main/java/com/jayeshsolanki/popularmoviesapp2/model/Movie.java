@@ -104,6 +104,17 @@ public class Movie implements Parcelable {
     @Expose
     private Integer voteCount;
 
+    public Movie(int id, String title, String overview, String releaseDate, Double voteAverage,
+                 String posterPath, String backdropPath) {
+        this.id = id;
+        this.title = title;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.voteAverage = voteAverage;
+        this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
+    }
+
     public Movie(Parcel parcel) {
         String[] data = new String[7];
         parcel.readStringArray(data);

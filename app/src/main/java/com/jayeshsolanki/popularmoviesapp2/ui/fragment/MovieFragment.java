@@ -1,10 +1,16 @@
 package com.jayeshsolanki.popularmoviesapp2.ui.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,18 +18,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.jayeshsolanki.popularmoviesapp2.AppConstants;
 import com.jayeshsolanki.popularmoviesapp2.R;
 import com.jayeshsolanki.popularmoviesapp2.model.Movie;
+import com.jayeshsolanki.popularmoviesapp2.util.ContentProviderHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import timber.log.Timber;
 
-public class MovieFragment extends Fragment {
+import static com.jayeshsolanki.popularmoviesapp2.AppConstants.MOVIE_INTENT;
+
+public class MovieFragment extends Fragment implements LoaderManager.LoaderCallbacks<Boolean> {
+
+    private static final int LOADER_ID = 600;
+
+    private static final String MOVIE_KEY = MOVIE_INTENT;
+    private static final String OPERATION_KEY = "operation";
 
     private Movie movie;
+
+    private boolean isFavMovie;
 
     @BindView(R.id.toolbar_movie)
     Toolbar toolbar;
@@ -46,6 +63,9 @@ public class MovieFragment extends Fragment {
     @BindView(R.id.vote_average)
     RatingBar voteAverage;
 
+    @BindView(R.id.fab_favorite)
+    FloatingActionButton favoriteFab;
+
     public MovieFragment() {
         // Required empty public constructor
     }
@@ -61,12 +81,12 @@ public class MovieFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            movie = savedInstanceState.getParcelable("movie");
+            movie = savedInstanceState.getParcelable(MOVIE_INTENT);
         }
 
         Intent intent = getActivity().getIntent();
-        if (intent != null && intent.hasExtra("movie")) {
-            movie = intent.getExtras().getParcelable("movie");
+        if (intent != null && intent.hasExtra(MOVIE_INTENT)) {
+            movie = intent.getExtras().getParcelable(MOVIE_INTENT);
         }
     }
 
@@ -84,13 +104,18 @@ public class MovieFragment extends Fragment {
 
         setupToolbar(toolbar);
 
+        Bundle args = new Bundle();
+        args.putParcelable(MOVIE_INTENT, movie);
+        args.putString(OPERATION_KEY, "query");
+        getActivity().getSupportLoaderManager().initLoader(LOADER_ID, args, this).forceLoad();
+
         bindData(movie);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("movie", movie);
+        outState.putParcelable(MOVIE_INTENT, movie);
     }
 
     public void setupToolbar(Toolbar toolbar) {
@@ -109,4 +134,64 @@ public class MovieFragment extends Fragment {
         voteAverage.setRating((float) movie.getVoteAverage().doubleValue());
     }
 
+    @OnClick(R.id.fab_favorite)
+    public void onClick(View v) {
+        Bundle args = new Bundle();
+        args.putParcelable(MOVIE_KEY, movie);
+        if (isFavMovie) {
+            args.putString(OPERATION_KEY, "delete");
+            getActivity().getSupportLoaderManager().restartLoader(LOADER_ID, args, MovieFragment.this).forceLoad();
+        } else {
+            args.putString(OPERATION_KEY, "insert");
+            getActivity().getSupportLoaderManager().restartLoader(LOADER_ID, args, MovieFragment.this).forceLoad();
+        }
+    }
+
+    @Override
+    public Loader<Boolean> onCreateLoader(int id, final Bundle args) {
+        return new AsyncTaskLoader<Boolean>(this.getContext()) {
+            @Override
+            protected void onStartLoading() {
+                forceLoad();
+            }
+
+            @Override
+            public Boolean loadInBackground() {
+                if (args != null) {
+                    String operation = args.getString(OPERATION_KEY);
+                    Movie movieToSave = args.getParcelable(MOVIE_KEY);
+                    String movieId = String.valueOf(movie.getId());
+                    switch (operation) {
+                        case "query":
+                            return ContentProviderHelper.isMovieInDb(getActivity(), movieId);
+                        case "insert":
+                            Uri uri = ContentProviderHelper.insertMoviesInDb(getActivity(), movieToSave);
+                            Timber.d(uri.toString());
+                            return uri != null;
+                        case "delete":
+                            int deletedMoviesCount = ContentProviderHelper.deleteMoviesFromDb(getActivity(), movieId);
+                            return deletedMoviesCount <= 0;
+                        default:
+                            throw new UnsupportedOperationException("This operation is not supported.");
+                    }
+                }
+                return false;
+            }
+        };
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Boolean> loader, Boolean isFav) {
+        isFavMovie = isFav;
+        if (isFav) {
+            favoriteFab.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_fav));
+        } else {
+            favoriteFab.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_fav_border));
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Boolean> loader) {
+        // TODO: Do something.
+    }
 }
