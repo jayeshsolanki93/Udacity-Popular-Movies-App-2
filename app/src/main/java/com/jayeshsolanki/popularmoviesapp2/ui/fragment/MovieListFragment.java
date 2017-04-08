@@ -290,7 +290,7 @@ public class MovieListFragment extends Fragment implements MovieListAdapter.Movi
 
     @Override
     public void onLoadFinished(Loader<List<Movie>> loader, List<Movie> movies) {
-        if (movies != null) {
+        if (movies != null && mMovies.size() == 0) {
             mMovies.addAll(movies);
             mAdapter = new MovieListAdapter(getContext(), mMovies);
             mAdapter.setListener(MovieListFragment.this);
