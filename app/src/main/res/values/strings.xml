@@ -5,6 +5,8 @@
 
     <string name="internet_err_msg">Check Internet Connection.</string>
 
+    <string name="action_share">Share</string>
+
     <string name="sort_popular">Popular</string>
     <string name="sort_top_rated">Highly Rated</string>
     <string name="soft_favorites">Favorites</string>
@@ -23,5 +25,6 @@
     <string name="placeholder_movie_item_release_year">2016</string>
     <string name="placeholder_movie_item_tagline">\"Witness the beginning of a happy ending\"</string>
     <string name="placeholder_movie_item_ratings">6.7</string>
+    <string name="extra_movie_subject">Here\'s a movie you would like to watch!</string>
 
 </resources>

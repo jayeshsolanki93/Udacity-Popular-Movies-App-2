@@ -20,6 +20,6 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
-        <item name="android:src">@drawable/sort</item>
+        <item name="android:src">@drawable/ic_sort</item>
     </style>
 </resources>

@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -125,6 +126,20 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
 
         String backDropUrl = AppConstants.BASE_IMAGE_URL + movie.getBackdropPath();
         Glide.with(this).load(backDropUrl).into(backdrop);
+
+        toolbar.inflateMenu(R.menu.movie_menu);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_share) {
+                    String data = String.format("%s%n%s", movie.getTitle(), movie.getOverview());
+                    Intent sharingIntent = shareMovieIntent(data);
+                    startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                }
+                return true;
+            }
+        });
     }
 
     public void bindData(Movie movie) {
@@ -132,6 +147,15 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
         title.setText(movie.getTitle());
         overview.setText(movie.getOverview());
         voteAverage.setRating((float) movie.getVoteAverage().doubleValue());
+    }
+
+    public Intent shareMovieIntent(String data) {
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT,
+                getResources().getString(R.string.extra_movie_subject));
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, data);
+        return sharingIntent;
     }
 
     @OnClick(R.id.fab_favorite)
