@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,15 +24,32 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jayeshsolanki.popularmoviesapp2.AppConstants;
+import com.jayeshsolanki.popularmoviesapp2.PopularMoviesApp;
 import com.jayeshsolanki.popularmoviesapp2.R;
 import com.jayeshsolanki.popularmoviesapp2.model.Movie;
+import com.jayeshsolanki.popularmoviesapp2.model.MovieReviewsResponse;
+import com.jayeshsolanki.popularmoviesapp2.model.MovieVideosResponse;
+import com.jayeshsolanki.popularmoviesapp2.model.Review;
+import com.jayeshsolanki.popularmoviesapp2.model.Video;
+import com.jayeshsolanki.popularmoviesapp2.rest.MovieService;
+import com.jayeshsolanki.popularmoviesapp2.ui.adapter.ReviewsListAdapter;
+import com.jayeshsolanki.popularmoviesapp2.ui.adapter.VideosListAdapter;
 import com.jayeshsolanki.popularmoviesapp2.util.ContentProviderHelper;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import timber.log.Timber;
 
+import static com.jayeshsolanki.popularmoviesapp2.AppConstants.API_KEY;
 import static com.jayeshsolanki.popularmoviesapp2.AppConstants.MOVIE_INTENT;
 
 public class MovieFragment extends Fragment implements LoaderManager.LoaderCallbacks<Boolean> {
@@ -42,6 +62,13 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
     private Movie movie;
 
     private boolean isFavMovie;
+
+    private ArrayList<Video> mVideos = new ArrayList<>();
+
+    private ArrayList<Review> mReviews = new ArrayList<>();
+
+    @Inject
+    Retrofit retrofit;
 
     @BindView(R.id.toolbar_movie)
     Toolbar toolbar;
@@ -67,6 +94,16 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
     @BindView(R.id.fab_favorite)
     FloatingActionButton favoriteFab;
 
+    @BindView(R.id.recyclerView_videos)
+    RecyclerView mVideosListRecyclerView;
+
+    @BindView(R.id.recyclerView_reviews)
+    RecyclerView mReviewsListRecyclerView;
+
+    protected VideosListAdapter mVideosListAdapter;
+
+    protected ReviewsListAdapter mReviewListAdapter;
+
     public MovieFragment() {
         // Required empty public constructor
     }
@@ -80,6 +117,9 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ((PopularMoviesApp) getActivity().getApplication())
+                .getDataComponent().inject(MovieFragment.this);
 
         if (savedInstanceState != null) {
             movie = savedInstanceState.getParcelable(MOVIE_INTENT);
@@ -111,6 +151,69 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
         getActivity().getSupportLoaderManager().initLoader(LOADER_ID, args, this).forceLoad();
 
         bindData(movie);
+
+        setupVideosRecyclerView();
+        setupReviewsRecyclerView();
+
+        loadMoreContent();
+    }
+
+    public void setupVideosRecyclerView() {
+        mVideosListAdapter = new VideosListAdapter(getActivity(), mVideos);
+        mVideosListRecyclerView.setAdapter(mVideosListAdapter);
+        mVideosListRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    public void setupReviewsRecyclerView() {
+        mReviewListAdapter = new ReviewsListAdapter(mReviews);
+        mReviewsListRecyclerView.setAdapter(mReviewListAdapter);
+        mReviewsListRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    public void loadMoreContent() {
+        if (movie != null) {
+            MovieService movieService = retrofit.create(MovieService.class);
+
+            Call<MovieVideosResponse> moviesVideosResponseCall = movieService.getVideos(movie.getId(), API_KEY);
+            moviesVideosResponseCall.enqueue(new Callback<MovieVideosResponse>() {
+                @Override
+                public void onResponse(Call<MovieVideosResponse> call, Response<MovieVideosResponse> response) {
+                    if (response != null && response.body() != null) {
+                        mVideos.addAll(response.body().getResults());
+                        mVideosListAdapter = new VideosListAdapter(getContext(), mVideos);
+                        mVideosListRecyclerView.setAdapter(mVideosListAdapter);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MovieVideosResponse> call, Throwable t) {
+                    showSnackBar(getString(R.string.internet_err_msg));
+                    Timber.d("Error code " + t.toString());
+                }
+            });
+
+            Call<MovieReviewsResponse> movieReviewsResponseCall = movieService.getReviews(movie.getId(), API_KEY);
+            movieReviewsResponseCall.enqueue(new Callback<MovieReviewsResponse>() {
+                @Override
+                public void onResponse(Call<MovieReviewsResponse> call, Response<MovieReviewsResponse> response) {
+                    if (response != null && response.body() != null) {
+                        mReviews.addAll(response.body().getResults());
+                        mReviewListAdapter = new ReviewsListAdapter(mReviews);
+                        mReviewsListRecyclerView.setAdapter(mReviewListAdapter);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MovieReviewsResponse> call, Throwable t) {
+                    showSnackBar(getString(R.string.internet_err_msg));
+                    Timber.d("Error code " + t.toString());
+                }
+            });
+        }
+    }
+
+    void showSnackBar(String msg) {
+        Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

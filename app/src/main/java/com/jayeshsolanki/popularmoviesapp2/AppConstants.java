@@ -9,6 +9,10 @@ public class AppConstants {
 
     public static final String MOVIE_INTENT = "movie";
 
+    public static final String YOUTUBE_THUMBNAIL_URL = "http://img.youtube.com/vi/%s/0.jpg";
+
+    public static final String YOUTUBE_VIDEO_BASE_URL = "https://www.youtube.com/watch?v=";
+
     private AppConstants() {
         throw new IllegalAccessError("Utility class");
     }

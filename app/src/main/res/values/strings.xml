@@ -17,6 +17,8 @@
     <string name="pref_sort_favorites" translatable="false">favorites</string>
 
     <string name="label_overview" translatable="true">Synopsis</string>
+    <string name="label_reviews" translatable="true">Reviews</string>
+    <string name="label_trailers" translatable="true">Trailers</string>
 
     <string name="placeholder_movie_item_title">Deadpool</string>
     <string name="placeholder_movie_item_overview">
@@ -26,5 +28,8 @@
     <string name="placeholder_movie_item_tagline">\"Witness the beginning of a happy ending\"</string>
     <string name="placeholder_movie_item_ratings">6.7</string>
     <string name="extra_movie_subject">Here\'s a movie you would like to watch!</string>
+    <string name="placeholder_video_item_title">Official Trailer</string>
+    <string name="placeholder_review_item_author">Wong</string>
+    <string name="placeholder_review_item_content">I actually enjoyed the movie so much that i\'ll recommend it to all my friends, at first i didn\'t really want to watch it because i\'m not into super hero movies at all, but i did anyway, i mean people were talking so much about it i had to see it myself and what an awesome choice i made. The good thing about this movie is that Deadpool is a hero but in a very comedic way, you don\'t usually expect comedy from a superhero film but this one was full of comedy and the way they treated the plot was amazing, it was there, humor was there in every scene, even when there was fighting or romance or any other scene, the writers managed to add comedy everywhere in a very good way that\'ll surprisingly make you want to watch it again, and again. Thank you for taking the time read my review and if you\'re asking yourself if you should watch this movie, it\'s a definite Yes.</string>
 
 </resources>
