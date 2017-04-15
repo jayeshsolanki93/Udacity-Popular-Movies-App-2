@@ -4,6 +4,11 @@ Android application to discover top rated and popular movies.
 This project is part of the Associate Android Developer Fast Track - Udacity.
 
 
+### Screenshots  
+<img src="screenshots/phone_portrait_list.png?raw=true" width="300">       <img src="screenshots/phone_portrait_details.png?raw=true" width="300">
+<img src="screenshots/phone_land_list.png?raw=true" width="600">
+<img src="screenshots/tablet_land.png?raw=true" width="600">
+
 #### Usage
 
 1. Get your TMDB api key from: https://www.themoviedb.org/documentation/api
