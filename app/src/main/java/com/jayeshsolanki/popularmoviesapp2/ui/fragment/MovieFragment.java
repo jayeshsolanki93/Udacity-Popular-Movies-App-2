@@ -149,7 +149,7 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
         Bundle args = new Bundle();
         args.putParcelable(MOVIE_INTENT, movie);
         args.putString(OPERATION_KEY, "query");
-        getActivity().getSupportLoaderManager().initLoader(LOADER_ID, args, this).forceLoad();
+        getActivity().getSupportLoaderManager().restartLoader(LOADER_ID, args, this).forceLoad();
 
         bindData(movie);
 
@@ -301,13 +301,13 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
                     String movieId = String.valueOf(movie.getId());
                     switch (operation) {
                         case "query":
-                            return ContentProviderHelper.isMovieInDb(getActivity(), movieId);
+                            return ContentProviderHelper.isMovieInDb(getContext(), movieId);
                         case "insert":
-                            Uri uri = ContentProviderHelper.insertMoviesInDb(getActivity(), movieToSave);
+                            Uri uri = ContentProviderHelper.insertMoviesInDb(getContext(), movieToSave);
                             Timber.d(uri.toString());
                             return uri != null;
                         case "delete":
-                            int deletedMoviesCount = ContentProviderHelper.deleteMoviesFromDb(getActivity(), movieId);
+                            int deletedMoviesCount = ContentProviderHelper.deleteMoviesFromDb(getContext(), movieId);
                             return deletedMoviesCount <= 0;
                         default:
                             throw new UnsupportedOperationException("This operation is not supported.");

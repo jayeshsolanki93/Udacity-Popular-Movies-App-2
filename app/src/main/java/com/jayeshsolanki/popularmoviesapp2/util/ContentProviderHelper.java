@@ -1,11 +1,10 @@
 package com.jayeshsolanki.popularmoviesapp2.util;
 
-import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.jayeshsolanki.popularmoviesapp2.data.MoviesContentProvider;
 import com.jayeshsolanki.popularmoviesapp2.data.MoviesContract;
 import com.jayeshsolanki.popularmoviesapp2.data.MoviesContract.*;
 import com.jayeshsolanki.popularmoviesapp2.model.Movie;
@@ -17,14 +16,16 @@ import timber.log.Timber;
 
 public class ContentProviderHelper {
 
+    public static final String URI_WITH_ID_FORMAT = "%s/%s";
+
     private ContentProviderHelper() {}
 
-    public static List<Movie> getMovieListFromDb(Activity activity, Uri uri) {
+    public static List<Movie> getMovieListFromDb(Context context, Uri uri) {
         List<Movie> movies = new ArrayList<>();
 
         Cursor data = null;
         try {
-            data = activity.getContentResolver().query(uri, null, null, null, null);
+            data = context.getContentResolver().query(uri, null, null, null, null);
             if (data != null && data.moveToFirst()) {
                 do {
                     int id = data.getInt(data.getColumnIndex(MoviesEntry.COLUMN_ID));
@@ -40,8 +41,7 @@ public class ContentProviderHelper {
                 } while (data.moveToNext());
             }
         } catch (Exception e) {
-            Timber.e("Failed to asynchronously load data.");
-            e.printStackTrace();
+            Timber.e(e, "Failed to asynchronously load data.");
         } finally {
             if (data != null) {
                 data.close();
@@ -50,9 +50,10 @@ public class ContentProviderHelper {
         return movies;
     }
 
-    public static boolean isMovieInDb(Activity activity, String id) {
-        Uri uri = Uri.parse(String.format("%s/%s", MoviesContract.MoviesEntry.CONTENT_URI, id));
-        List<Movie> movies = getMovieListFromDb(activity, uri);
+    public static boolean isMovieInDb(Context context, String id) {
+        Uri uri = Uri.parse(String.format(URI_WITH_ID_FORMAT,
+                MoviesContract.MoviesEntry.CONTENT_URI, id));
+        List<Movie> movies = getMovieListFromDb(context, uri);
         for (Movie movie : movies) {
             if (movie.getId().equals(Integer.parseInt(id))) {
                 return true;
@@ -61,9 +62,10 @@ public class ContentProviderHelper {
         return false;
     }
 
-    public static Movie getMovieFromDb(Activity activity, String id) {
-        Uri uri = Uri.parse(String.format("%s/%s", MoviesContract.MoviesEntry.CONTENT_URI, id));
-        List<Movie> movies = getMovieListFromDb(activity, uri);
+    public static Movie getMovieFromDb(Context context, String id) {
+        Uri uri = Uri.parse(String.format(URI_WITH_ID_FORMAT,
+                MoviesContract.MoviesEntry.CONTENT_URI, id));
+        List<Movie> movies = getMovieListFromDb(context, uri);
         for (Movie movie : movies) {
             if (movie.getId().equals(Integer.parseInt(id))) {
                 return movie;
@@ -72,7 +74,7 @@ public class ContentProviderHelper {
         return null;
     }
 
-    public static Uri insertMoviesInDb(Activity activity, Movie movie) {
+    public static Uri insertMoviesInDb(Context context, Movie movie) {
         ContentValues cv = new ContentValues();
         cv.put(MoviesContract.MoviesEntry.COLUMN_ID, movie.getId());
         cv.put(MoviesContract.MoviesEntry.COLUMN_TITLE, movie.getTitle());
@@ -81,11 +83,13 @@ public class ContentProviderHelper {
         cv.put(MoviesContract.MoviesEntry.COLUMN_VOTE_AVERAGE, movie.getVoteAverage());
         cv.put(MoviesContract.MoviesEntry.COLUMN_BACKDROP_PATH, movie.getBackdropPath());
         cv.put(MoviesContract.MoviesEntry.COLUMN_POSTER_PATH, movie.getPosterPath());
-        return activity.getContentResolver().insert(MoviesContract.MoviesEntry.CONTENT_URI, cv);
+        return context.getContentResolver().insert(MoviesContract.MoviesEntry.CONTENT_URI, cv);
     }
-    public static int deleteMoviesFromDb(Activity activity, String id) {
-        Uri uri = Uri.parse(String.format("%s/%s", MoviesContract.MoviesEntry.CONTENT_URI, id));
-        return activity.getContentResolver().delete(uri, null, null);
 
+    public static int deleteMoviesFromDb(Context context, String id) {
+        Uri uri = Uri.parse(String.format(URI_WITH_ID_FORMAT,
+                MoviesContract.MoviesEntry.CONTENT_URI, id));
+        return context.getContentResolver().delete(uri, null, null);
     }
+
 }
