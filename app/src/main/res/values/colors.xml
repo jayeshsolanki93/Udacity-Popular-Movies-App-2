@@ -7,4 +7,5 @@
     <color name="black">#000000</color>
     <color name="toolbarTransparent">#00FFFFFF</color>
     <color name="blackTinted">#44000000</color>
+    <color name="background">#f9f9f9</color>
 </resources>
