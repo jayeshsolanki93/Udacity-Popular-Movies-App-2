@@ -32,6 +32,7 @@ import com.jayeshsolanki.popularmoviesapp2.model.MovieVideosResponse;
 import com.jayeshsolanki.popularmoviesapp2.model.Review;
 import com.jayeshsolanki.popularmoviesapp2.model.Video;
 import com.jayeshsolanki.popularmoviesapp2.rest.MovieService;
+import com.jayeshsolanki.popularmoviesapp2.ui.activity.MovieActivity;
 import com.jayeshsolanki.popularmoviesapp2.ui.adapter.ReviewsListAdapter;
 import com.jayeshsolanki.popularmoviesapp2.ui.adapter.VideosListAdapter;
 import com.jayeshsolanki.popularmoviesapp2.util.ContentProviderHelper;
@@ -229,6 +230,16 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
 
         String backDropUrl = AppConstants.BASE_IMAGE_URL + movie.getBackdropPath();
         Glide.with(this).load(backDropUrl).into(backdrop);
+
+        if (getActivity() instanceof MovieActivity) {
+            toolbar.setNavigationIcon(R.drawable.ic_back_arrow);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().finish();
+                }
+            });
+        }
 
         toolbar.inflateMenu(R.menu.movie_menu);
 
