@@ -5,6 +5,6 @@
     android:id="@+id/recyclerView_movies"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
+    android:layout_margin="@dimen/movielist_intra_card_spacing"
     tools:context=".ui.fragment.MovieListFragment"
     tools:listitem="@layout/card_movie" />

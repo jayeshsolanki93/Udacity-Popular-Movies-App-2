@@ -6,10 +6,9 @@
     android:id="@+id/movie_item_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
     app:cardUseCompatPadding="true"
-    app:cardElevation="3dp"
-    app:cardCornerRadius="3dp">
+    app:cardElevation="@dimen/card_elevation"
+    app:cardCornerRadius="@dimen/card_radius">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,8 +31,8 @@
             android:fontFamily="sans-serif-thin"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:padding="10dp"
-            android:textColor="#FFF"
+            android:padding="@dimen/twice_padding"
+            android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
             tools:text="@string/placeholder_movie_item_title" />

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white_opaque">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,8 +17,8 @@
             android:id="@+id/release_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="@dimen/spacing"
+            android:layout_marginTop="@dimen/spacing"
             android:text="@string/placeholder_movie_item_release_year"
             android:textColor="@color/grey"
             android:textSize="12sp" />
@@ -40,17 +40,17 @@
             style="?attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:numStars="10"
+            android:layout_marginBottom="@dimen/spacing"
+            android:layout_marginTop="@dimen/spacing"
+            android:numStars="@string/rating_bar_total_starts"
             android:rating="@string/placeholder_movie_item_ratings"
-            android:stepSize="0.1" />
+            android:stepSize="@string/rating_bar_step_size" />
     </LinearLayout>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="1dp">
+        app:cardElevation="@dimen/card_elevation">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,9 +60,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/custom_margin"
-                android:layout_marginRight="@dimen/custom_margin"
-                android:layout_marginTop="@dimen/custom_margin"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="@dimen/text_margin"
                 android:text="@string/label_overview"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -71,7 +71,7 @@
                 android:id="@+id/overview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/custom_margin"
+                android:layout_margin="@dimen/text_margin"
                 android:ellipsize="end"
                 android:maxLines="5"
                 android:textSize="16sp"
@@ -84,8 +84,8 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:cardElevation="1dp">
+        android:layout_marginTop="@dimen/movieitem_intra_card_spacing"
+        app:cardElevation="@dimen/card_elevation">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,9 +95,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/custom_margin"
-                android:layout_marginRight="@dimen/custom_margin"
-                android:layout_marginTop="@dimen/custom_margin"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="@dimen/text_margin"
                 android:text="@string/label_trailers"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -106,7 +106,7 @@
                 android:id="@+id/recyclerView_videos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/custom_margin"
+                android:layout_margin="@dimen/card_margin"
                 android:orientation="horizontal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 tools:listitem="@layout/card_video" />
@@ -118,8 +118,8 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:elevation="1dp">
+        android:layout_marginTop="@dimen/movieitem_intra_card_spacing"
+        app:cardElevation="@dimen/card_elevation">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -129,9 +129,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/custom_margin"
-                android:layout_marginRight="@dimen/custom_margin"
-                android:layout_marginTop="@dimen/custom_margin"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="@dimen/text_margin"
                 android:text="@string/label_reviews"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -140,7 +140,7 @@
                 android:id="@+id/recyclerView_reviews"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/custom_margin"
+                android:layout_margin="@dimen/card_margin"
                 tools:listitem="@layout/card_review" />
 
         </LinearLayout>

@@ -20,6 +20,9 @@
     <string name="label_reviews" translatable="true">Reviews</string>
     <string name="label_trailers" translatable="true">Trailers</string>
 
+    <string name="rating_bar_total_starts">10</string>
+    <string name="rating_bar_step_size">0.1</string>
+
     <string name="placeholder_movie_item_title">Deadpool</string>
     <string name="placeholder_movie_item_overview">
         Based upon Marvel Comics’ most unconventional anti-hero, DEADPOOL tells the origin story of former Special Forces operative turned mercenary Wade Wilson, who after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.
