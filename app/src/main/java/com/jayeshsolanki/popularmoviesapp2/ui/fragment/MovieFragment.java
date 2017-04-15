@@ -167,7 +167,7 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
     public void setupReviewsRecyclerView() {
         mReviewListAdapter = new ReviewsListAdapter(mReviews);
         mReviewsListRecyclerView.setAdapter(mReviewListAdapter);
-        mReviewsListRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mReviewsListRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
     }
 
     public void loadMoreContent() {
