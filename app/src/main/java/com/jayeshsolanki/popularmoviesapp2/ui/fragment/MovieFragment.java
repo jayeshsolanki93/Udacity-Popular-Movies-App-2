@@ -330,6 +330,6 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onLoaderReset(Loader<Boolean> loader) {
-        // TODO: Do something.
+        isFavMovie = false;
     }
 }

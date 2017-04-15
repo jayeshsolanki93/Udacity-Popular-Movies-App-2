@@ -300,7 +300,7 @@ public class MovieListFragment extends Fragment implements MovieListAdapter.Movi
 
     @Override
     public void onLoaderReset(Loader<List<Movie>> loader) {
-        // TODO: Do something.
+        mAdapter.setAdapterData(new ArrayList<Movie>());
     }
 
     public interface MovieSelectedListener {
